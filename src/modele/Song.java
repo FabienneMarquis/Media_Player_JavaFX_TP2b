@@ -53,6 +53,7 @@ public class Song extends Observable {
     }
 
     public void setInfoSong() {
+      //  voir si je mets les info là pour le pas de métadonné  if(album!=null&&albumArtist!=null)
         this.infoSong = "Album : " + album + "\n Album artist:" + albumArtist +
                 "\n Artist : " + artist + "\n Composer : " + composer +
                 "\n Genre : " + genre + "\n Title : " + title +
@@ -95,36 +96,28 @@ public class Song extends Observable {
         ObservableMap<String, Object> metadata = media.getMetadata();
         Set<String> keys = metadata.keySet();
 
-        String txt = "";
         for (String key : keys) {
             if (!key.equals("raw metadata")) {
-                txt += key + " : " + metadata.get(key) + "\n";
                 if (key.equals("album")) {
                     setAlbum(metadata.get(key).toString());
-                    setInfoSong();
                 } else if (key.equals("artist")) {
                     setArtist(metadata.get(key).toString());
-                    setInfoSong();
                 } else if (key.equals("title")) {
                     setTitle(metadata.get(key).toString());
-                    setInfoSong();
                 } else if (key.equals("year")) {
                     setYear(metadata.get(key).toString());
-                    setInfoSong();
                 } else if (key.equals("albumArtist")) {
                     setAlbumArtist(metadata.get(key).toString());
-                    setInfoSong();
                 } else if (key.equals("composer")) {
                     setComposer(metadata.get(key).toString());
-                    setInfoSong();
                 } else if (key.equals("genre")) {
                     setGenre(metadata.get(key).toString());
-                    setInfoSong();
-                } else {
-                    setInfoSong("Aucune Métadonnées disponibles");
                 }
+            }else if (metadata.isEmpty()){
+                setInfoSong("Aucune Métadonnées disponibles");
             }
         }
+        setInfoSong();
 
     }
 

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="TP2bFabienneMarquis:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TP2bFabienneMarquis_jar</output-path>
+    <root id="archive" name="TP2bFabienneMarquis.jar">
+      <element id="module-output" name="TP2bFabienneMarquis" />
+    </root>
+  </artifact>
+</component>

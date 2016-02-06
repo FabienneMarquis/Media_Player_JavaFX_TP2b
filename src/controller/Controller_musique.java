@@ -34,6 +34,7 @@ import java.awt.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
 
@@ -104,6 +105,10 @@ public class Controller_musique implements Initializable {
     private java.util.List<Song> listSong;
 
     private PlayList playList;
+
+    private FillTransition ft;
+
+    private DecimalFormat df = new DecimalFormat("###");
 
     @FXML
     void fastForwardsong(ActionEvent event) {
@@ -263,12 +268,12 @@ public class Controller_musique implements Initializable {
             switch (mediaPlayer.getStatus()) {
                 case READY:
                     onReady();
-                    setPlayListView();
                     break;
                 case PAUSED:
                     btnPause.setDisable(true);
                     btnStop.setDisable(false);
                     btnPlay.setDisable(false);
+                    ft.pause();
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -280,6 +285,7 @@ public class Controller_musique implements Initializable {
                     btnPause.setDisable(false);
                     btnStop.setDisable(false);
                     btnPlay.setDisable(true);
+                    ft.play();
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -291,6 +297,7 @@ public class Controller_musique implements Initializable {
                     btnPause.setDisable(true);
                     btnStop.setDisable(true);
                     btnPlay.setDisable(false);
+                    ft.pause();
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -306,7 +313,7 @@ public class Controller_musique implements Initializable {
         btnPause.setDisable(true);
         btnStop.setDisable(true);
         btnPlay.setDisable(false);
-
+        setPlayListView();
         mediaPlayer.setOnEndOfMedia(() -> {
             mediaPlayer = new MediaPlayer(media);
             System.out.println("end of file");
@@ -375,7 +382,10 @@ public class Controller_musique implements Initializable {
         sliderVolume.valueProperty().addListener((observable, oldValue, newValue) -> {
             volumePourcentage.setText(String.valueOf((int) sliderVolume.getValue()));
             if (!mediaPlayer.isMute()) {
-                mediaPlayer.setVolume(Math.pow((double) sliderVolume.getValue() / 100, 3));
+                double volumeRatio = (((double)newValue-20)/80)*100;
+                volumePourcentage.setText(String.valueOf(df.format(volumeRatio)));
+                mediaPlayer.setVolume(Math.pow((double)newValue/100, 3));
+                ft.setRate(((double)newValue/100)*2 + 0.5);
             }
         });
 
@@ -431,10 +441,10 @@ public class Controller_musique implements Initializable {
 
         //setter la vitesse avec le volume et le play avec le bouton play pause et stop
 
-        FillTransition ft = new FillTransition(Duration.millis(3000), rectangleBlack, Color.BLACK, Color.WHITE);
+        ft = new FillTransition(Duration.millis(3000), rectangleBlack, Color.BLACK, Color.WHITE);
         ft.setCycleCount(-1);
         ft.setAutoReverse(true);
 
-        ft.play();
+
     }
 }
