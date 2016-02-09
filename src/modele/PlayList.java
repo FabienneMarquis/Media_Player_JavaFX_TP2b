@@ -19,7 +19,7 @@ public class PlayList extends Observable{
         playlist = new ArrayList<>();
         // "Super Neko World.mp3" "07-Psapp-Everybody-Wants-To-Be-A-Cat.mp3" "Deftones - Change (In The House Of Flies).mp3"
 
-        playlist.add(new Song(getClass().getResource("/Deftones - Change (In The House Of Flies).mp3").toString()));
+        //playlist.add(new Song(getClass().getResource("/Deftones - Change (In The House Of Flies).mp3").toString()));
 
         playlist.add(new Song(getClass().getResource("/Super Neko World.mp3").toString()));
 

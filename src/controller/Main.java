@@ -28,12 +28,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception  {
 
         String path = "/vue/vueMusique.fxml";
-        System.out.print(getClass().getResource("/Super Neko World.mp3"));
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
         root = fxmlLoader.load();
         scene = new Scene(root);
 
-        primaryStage.setTitle("Cours multimédia TP2 - Musique - Fabienne Marquis");
+        primaryStage.setTitle("TP2 - Musique - Fabienne Marquis");
         primaryStage.setScene(scene);
         primaryStage.show();
 

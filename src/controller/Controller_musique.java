@@ -198,7 +198,6 @@ public class Controller_musique implements Initializable {
             try {
                 URL url = new URL(event.getDragboard().getUrl());
                 String urlClean = url.toString().replace(" ", "%20");
-                System.out.print(urlClean);
                 song = new Song(urlClean);
                 playList.addSong(song);
                 media = new Media(song.getUrlSong());
@@ -244,7 +243,6 @@ public class Controller_musique implements Initializable {
     }
 
     private void setFileName() {
-        System.out.println(media.getSource());
         String[] songURLSplit = media.getSource().split("/");
         String name = songURLSplit[songURLSplit.length - 1].replace("%20", " ");
         titreChanson.setText(name);
@@ -316,8 +314,6 @@ public class Controller_musique implements Initializable {
         setPlayListView();
         mediaPlayer.setOnEndOfMedia(() -> {
             mediaPlayer = new MediaPlayer(media);
-            System.out.println("end of file");
-
             if (!checkBoxReplay.isSelected()) {
                 mediaPlayer.seek(Duration.millis(0));
                 mediaPlayer.stop();
